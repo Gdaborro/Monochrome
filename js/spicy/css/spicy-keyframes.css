@@ -1,0 +1,126 @@
+/* Vendored from Spicy Lyrics src/app.tsx (skeletonStyle block, see ../../ATTRIBUTION.md).
+   Runtime-injected keyframes for marquees, the karaoke gradient sweep and the
+   artwork crossfade. Loaded as a real stylesheet here instead of a <style>
+   injection. */
+@keyframes skeleton {
+  to {
+    background-position-x: 0;
+  }
+}
+
+@keyframes Marquee_SongName {
+  0% {
+    transform: translateX(calc(0px + min(-100% + 86cqw, 0px) * 0));
+  }
+  10% {
+    transform: translateX(calc(0px + min(-100% + 86cqw, 0px) * 0));
+  }
+  90% {
+    transform: translateX(calc(0px + min(-100% + 86cqw, 0px) * 1));
+  }
+  100% {
+    transform: translateX(calc(0px + min(-100% + 86cqw, 0px) * 1));
+  }
+}
+
+@keyframes Marquee_SongName_SongMoreInfo {
+  0% {
+    transform: translateX(calc(0px + min(-100% + 98cqw, 0px) * 0));
+  }
+  10% {
+    transform: translateX(calc(0px + min(-100% + 98cqw, 0px) * 0));
+  }
+  90% {
+    transform: translateX(calc(0px + min(-100% + 98cqw, 0px) * 1));
+  }
+  100% {
+    transform: translateX(calc(0px + min(-100% + 98cqw, 0px) * 1));
+  }
+}
+
+@keyframes Marquee_Artists {
+  0% {
+    transform: translateX(calc(0px + min(-100% + 81cqw, 0px) * 0));
+  }
+  10% {
+    transform: translateX(calc(0px + min(-100% + 81cqw, 0px) * 0));
+  }
+  90% {
+    transform: translateX(calc(0px + min(-100% + 81cqw, 0px) * 1));
+  }
+  100% {
+    transform: translateX(calc(0px + min(-100% + 81cqw, 0px) * 1));
+  }
+}
+
+@keyframes Marquee_Artists_SongMoreInfo {
+  0% {
+    transform: translateX(calc(0px + min(-100% + 98cqw, 0px) * 0));
+  }
+  10% {
+    transform: translateX(calc(0px + min(-100% + 98cqw, 0px) * 0));
+  }
+  90% {
+    transform: translateX(calc(0px + min(-100% + 98cqw, 0px) * 1));
+  }
+  100% {
+    transform: translateX(calc(0px + min(-100% + 98cqw, 0px) * 1));
+  }
+}
+
+@keyframes Marquee_SongName_Compact {
+  0% {
+    transform: translateX(calc(0px + min(-100% + 100cqw, 0px) * 0));
+  }
+  10% {
+    transform: translateX(calc(0px + min(-100% + 100cqw, 0px) * 0));
+  }
+  90% {
+    transform: translateX(calc(0px + min(-100% + 100cqw, 0px) * 1));
+  }
+  100% {
+    transform: translateX(calc(0px + min(-100% + 100cqw, 0px) * 1));
+  }
+}
+
+@keyframes Marquee_Artists_Compact {
+  0% {
+    transform: translateX(calc(0px + min(-100% + 100cqw, 0px) * 0));
+  }
+  10% {
+    transform: translateX(calc(0px + min(-100% + 100cqw, 0px) * 0));
+  }
+  90% {
+    transform: translateX(calc(0px + min(-100% + 100cqw, 0px) * 1));
+  }
+  100% {
+    transform: translateX(calc(0px + min(-100% + 100cqw, 0px) * 1));
+  }
+}
+
+@keyframes SLM_Animation {
+  0% {
+    --SLM_GradientPosition: -27.5%;
+  }
+  100% {
+    --SLM_GradientPosition: 100%;
+  }
+}
+
+@keyframes Pre_SLM_GradientAnimation {
+  0% {
+    --SLM_GradientPosition: -50%;
+  }
+  100% {
+    --SLM_GradientPosition: -27.5%;
+  }
+}
+
+@keyframes MB_anim_enter {
+  0% {
+    transform: translate(100%, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
