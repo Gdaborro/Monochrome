@@ -3,6 +3,40 @@
 import { SVG_RIGHT_ARROW } from './icons';
 import { isIos, isSafari } from './platform-detection.js';
 
+// Self-hosted API proxy (see api/hifi.js). Public mirrors gate browser
+// traffic by origin, so this deployment serves its API/stream traffic through
+// same-origin proxy routes that re-issue requests with an authorized origin.
+// Active only on our own hosts; everywhere else (localhost, upstream) the
+// stock instance behavior is untouched.
+function isSelfHostedOrigin() {
+    try {
+        const host = window.location.hostname || '';
+        return /(^|\.)aborro\.dev$/.test(host) || /\.vercel\.app$/.test(host);
+    } catch {
+        return false;
+    }
+}
+
+function selfHostedProxyInstances(type) {
+    if (!isSelfHostedOrigin()) return [];
+    try {
+        const origin = window.location.origin.replace(/\/+$/, '');
+        const keys = type === 'streaming' ? ['dzr', 'lol', 'samidy', 'tf'] : ['lol', 'samidy', 'tf', 'api'];
+        return keys.map((key) => ({ url: `${origin}/api/hifi/${key}`, isSelfHostedProxy: true }));
+    } catch {
+        return [];
+    }
+}
+
+function selfHostedDeezerBaseUrl() {
+    if (!isSelfHostedOrigin()) return null;
+    try {
+        return `${window.location.origin.replace(/\/+$/, '')}/api/hifi/dzr`;
+    } catch {
+        return null;
+    }
+}
+
 export const apiSettings = {
     STORAGE_KEY: 'monochrome-api-instances-v9',
     INSTANCES_URLS: [],
@@ -143,6 +177,7 @@ export const apiSettings = {
 
         const combined = [
             ...userUrls.map((u) => (typeof u === 'string' ? { url: u, isUser: true } : { ...u, isUser: true })),
+            ...selfHostedProxyInstances(type),
             ...defaultUrls,
         ];
 
@@ -3249,7 +3284,11 @@ export const deezerFallbackSettings = {
 
     getApiBaseUrl() {
         try {
-            return localStorage.getItem(this.API_BASE_URL_KEY) || this.DEFAULT_API_BASE_URL;
+            const stored = localStorage.getItem(this.API_BASE_URL_KEY);
+            if (stored) return stored;
+            // On our own hosts the direct mirror URL is origin-gated (403s),
+            // so default to the self-hosted proxy route (see api/hifi.js).
+            return selfHostedDeezerBaseUrl() || this.DEFAULT_API_BASE_URL;
         } catch {
             return this.DEFAULT_API_BASE_URL;
         }
